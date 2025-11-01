@@ -884,6 +884,12 @@ main {
   position: relative;
   margin-bottom: 25px;
 }
+.favicon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;   /* makes it circular */
+  object-fit: cover;
+}
 
 .filter-select {
   background: var(--eerie-black-2);
