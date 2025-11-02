@@ -157,3 +157,62 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+/* ============================================================
+   Portfolio Filter Fix — works with your existing HTML
+   ============================================================ */
+document.addEventListener("DOMContentLoaded", () => {
+  const filterButtons = document.querySelectorAll("[data-filter-btn]");
+  const selectItems = document.querySelectorAll("[data-select-item]");
+  const selectValue = document.querySelector("[data-selecct-value]");
+  const projects = document.querySelectorAll("[data-filter-item]");
+  const selectBox = document.querySelector("[data-select]");
+
+  // normalize function: lowercase + remove spaces/slashes
+  const norm = (str) => str.toLowerCase().replace(/[\s/]+/g, "");
+
+  function filterProjects(selected) {
+    projects.forEach((p) => {
+      const cat = norm(p.dataset.category);
+      const show = selected === "all" || cat.includes(selected);
+      p.classList.toggle("active", show);
+    });
+  }
+
+  function highlightButtons(selected) {
+    filterButtons.forEach((b) => {
+      const btn = norm(b.textContent.trim());
+      b.classList.toggle("active", btn === selected || (selected === "all" && btn === "all"));
+    });
+  }
+
+  // Initialize
+  filterProjects("all");
+  highlightButtons("all");
+  if (selectValue) selectValue.textContent = "All";
+
+  // ----- top filter buttons -----
+  filterButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const selected = norm(btn.textContent.trim());
+      filterProjects(selected);
+      highlightButtons(selected);
+      if (selectValue) selectValue.textContent = btn.textContent.trim();
+    });
+  });
+
+  // ----- dropdown open/close -----
+  if (selectBox) {
+    selectBox.addEventListener("click", () => selectBox.classList.toggle("active"));
+  }
+
+  // ----- dropdown items -----
+  selectItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      const selected = norm(item.textContent.trim());
+      if (selectValue) selectValue.textContent = item.textContent.trim();
+      if (selectBox) selectBox.classList.remove("active");
+      filterProjects(selected);
+      highlightButtons(selected);
+    });
+  });
+});
