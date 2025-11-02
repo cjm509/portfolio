@@ -965,10 +965,15 @@ main {
 .project-img {
   position: relative;
   width: 100%;
-  height: 200px;
+  aspect-ratio: 4 / 3;      /* ensures consistent rectangular shape */
   border-radius: 16px;
   overflow: hidden;
   margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--eerie-black-2); /* fallback background */
+  margin-top: -8px; /* moves only the images up */
 }
 
 .project-img::before {
@@ -1012,7 +1017,7 @@ main {
 .project-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover;        /* crops without distortion */
   transition: var(--transition-1);
 }
 
