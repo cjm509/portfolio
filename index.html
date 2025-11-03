@@ -924,7 +924,7 @@
                   <img src="./assets/images/htmljava.jpg" alt="arrival" loading="lazy">
                 </figure>
 
-                <h3 class="project-title">Various HTML, CSS and JAva Projects </h3>
+                <h3 class="project-title">Various HTML, CSS and Java Projects </h3>
 
                 <p class="project-category">Coding Projects</p>
 
@@ -1155,22 +1155,48 @@
 
           <h3 class="h3 form-title">Contact Form</h3>
 
-          <form action="#" class="form" data-form>
 
-            <div class="input-wrapper">
-              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+ <form onsubmit="openGmailCompose(event)" class="form" data-form>
 
-              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
-            </div>
+  <div class="input-wrapper">
+    <input type="text" id="fullname" name="fullname" class="form-input" placeholder="Full name" required>
+    <input type="email" id="email" name="email" class="form-input" placeholder="Email address" required>
+  </div>
 
-            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+  <textarea id="message" name="message" class="form-input" placeholder="Your Message" required></textarea>
 
-            <button class="form-btn" type="submit" disabled data-form-btn>
-              <ion-icon name="paper-plane"></ion-icon>
-              <span>Send Message</span>
-            </button>
+  <button class="form-btn" type="submit" data-form-btn>
+    <ion-icon name="paper-plane"></ion-icon>
+    <span>Send Message</span>
+  </button>
 
-          </form>
+</form>
+
+<script>
+function openGmailCompose(event) {
+  event.preventDefault(); // prevent form from reloading page
+
+  // collect form values
+  const name = document.getElementById('fullname').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
+
+  // your email address
+  const to = "cjm509@scarletmail.rutgers.edu";
+
+  // prefill subject and body
+  const subject = encodeURIComponent(`Message from ${name}`);
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+
+  // Gmail compose URL
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`;
+
+  // open Gmail in a new tab
+  window.open(gmailUrl, '_blank');
+}
+</script>
+
+
 
         </section>
 
